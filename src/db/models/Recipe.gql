@@ -1,0 +1,5 @@
+type Recipe {
+    id: ID!
+    title: String!
+    pages: [Page] @relation(name: "RECIPE_PAGE", direction: "OUT")
+}

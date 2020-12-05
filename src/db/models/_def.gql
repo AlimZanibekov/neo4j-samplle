@@ -1,0 +1,7 @@
+directive @relation(name: String, direction: String) on FIELD_DEFINITION | OBJECT
+directive @cypher(statement: String) on FIELD_DEFINITION
+
+enum _RelationDirections {
+    IN
+    OUT
+}

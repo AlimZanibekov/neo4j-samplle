@@ -1,0 +1,6 @@
+type Component {
+    id: ID!
+    content: String!
+    pages: [PageComponent]
+    user: [User] @relation(name: "USER_COMPONENT", direction: "IN")
+}

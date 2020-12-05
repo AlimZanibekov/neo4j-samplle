@@ -1,0 +1,22 @@
+{
+  "name": "neo4j-samplle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Alim Zanibekov",
+  "license": "MIT",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/AlimZanibekov/neo4j-samplle.git"
+  },
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "dependencies": {
+    "apollo-server-express": "^2.19.0",
+    "express": "^4.17.1",
+    "graphql": "^14.2.1",
+    "neo4j-driver": "^4.2.1",
+    "neo4j-graphql-js": "^2.17.1"
+  }
+}

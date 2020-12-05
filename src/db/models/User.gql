@@ -1,0 +1,13 @@
+type User {
+    id: ID!
+    role: Role!
+    name: String!
+    pages: [Page] @relation(name: "USER_PAGE", direction: "OUT")
+    components: [Component] @relation(name: "USER_COMPONENT", direction: "OUT")
+    recipes: [Recipe] @relation(name: "USER_RECIPE", direction: "OUT")
+}
+
+enum Role {
+    CREATOR
+    USER
+}
