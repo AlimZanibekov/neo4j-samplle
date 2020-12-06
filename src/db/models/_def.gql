@@ -1,7 +1,22 @@
-directive @relation(name: String, direction: String) on FIELD_DEFINITION | OBJECT
-directive @cypher(statement: String) on FIELD_DEFINITION
-
 enum _RelationDirections {
     IN
     OUT
 }
+
+directive @cypher(statement: String) on FIELD_DEFINITION
+directive @relation(
+    name: String
+    direction: _RelationDirections
+    from: String
+    to: String
+) on FIELD_DEFINITION | OBJECT
+directive @additionalLabels(labels: [String]) on OBJECT
+directive @MutationMeta(
+    relationship: String
+    from: String
+    to: String
+) on FIELD_DEFINITION
+directive @neo4j_ignore on FIELD_DEFINITION
+directive @id on FIELD_DEFINITION
+directive @unique on FIELD_DEFINITION
+directive @index on FIELD_DEFINITION

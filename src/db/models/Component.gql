@@ -1,6 +1,6 @@
 type Component {
-    id: ID!
+    id: ID! @unique
     content: String!
     pages: [PageComponent]
-    user: [User] @relation(name: "USER_COMPONENT", direction: "IN")
+    user: [User] @relation(name: "USER_COMPONENT", direction: IN)
 }

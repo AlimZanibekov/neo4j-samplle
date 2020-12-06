@@ -45,15 +45,14 @@ query($id: ID!) {
 
 const compiledQuery = parse(query);
 
-router.get('/page/:id', (req, res) => {
+router.get('/page/:id', async (req, res) => {
   const { id } = req.params;
-  execute(schema, compiledQuery, null, { driver }, { id })
-    .then((result) => {
-      res.json(result);
-    })
-    .catch(err => {
-      res.status(500).json(err);
-    });
+  try {
+    const result = await execute(schema, compiledQuery, null, { driver }, { id })
+    res.json(result);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 

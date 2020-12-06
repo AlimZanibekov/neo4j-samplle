@@ -6,8 +6,8 @@
   "author": "Alim Zanibekov",
   "license": "MIT",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/AlimZanibekov/neo4j-samplle.git"
+    "type": "git",
+    "url": "https://github.com/AlimZanibekov/neo4j-samplle.git"
   },
   "scripts": {
     "start": "node src/app.js"
@@ -17,6 +17,7 @@
     "express": "^4.17.1",
     "graphql": "^14.2.1",
     "neo4j-driver": "^4.2.1",
+    "neo4j-graphql-binding": "^1.2.0",
     "neo4j-graphql-js": "^2.17.1"
   }
 }

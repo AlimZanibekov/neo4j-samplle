@@ -1,10 +1,10 @@
 type Page {
-    id: ID!
+    id: ID! @unique
     title: String!
     components: [PageComponent]
     pages: [PagePages]
-    users: [User] @relation(name: "USER_PAGE", direction: "IN")
-    recipes: [Recipe] @relation(name: "RECIPE_PAGE", direction: "IN")
+    users: [User] @relation(name: "USER_PAGE", direction: IN)
+    recipes: [Recipe] @relation(name: "RECIPE_PAGE", direction: IN)
 }
 
 type PageComponent @relation(name: "PAGE_COMPONENT") {

@@ -62,23 +62,51 @@ setInterval(() => {
   i = (i + 1) % 4;
   process.stdout.write(`Waiting neo4j${new Array(i + 1).join('.')}`);
 }, 700);
-graphql(schema, queryCheck, null, { driver })
-  .then((result) => {
+
+
+const main = async () => {
+  try {
+    const uniqueFields = [];
+    Object.values(schema.getTypeMap())
+      .filter(i => !i.name.startsWith('_'))
+      .forEach(i => {
+        const name = i.name;
+        if (i.astNode && i.astNode.fields instanceof Array) {
+          for (const field of i.astNode.fields) {
+            if (field.directives.find(j => j.name.value === 'unique')) {
+              uniqueFields.push({
+                label: name,
+                field: field.name.value
+              });
+            }
+          }
+        }
+      });
+
+    const result = await graphql(schema, queryCheck, null, { driver });
     if (!result.data || !result.data.user || result.data.user.length === 0) {
-      return graphql(schema, query, null, { driver })
+      await graphql(schema, query, null, { driver });
+
+      const session = driver.session();
+      for (const { label, field } of uniqueFields) {
+        await session.run(`CREATE CONSTRAINT ${label.toUpperCase() + '_' + field.toUpperCase()}_UNIQUE ON (p:${label}) ASSERT p.${field} IS UNIQUE;`);
+      }
+      await session.close();
+
+      clear();
+      console.log('Success');
+      process.exit(0);
     } else {
       clear();
       console.log('Data already exist');
       process.exit(0);
     }
-  })
-  .then(() => {
-    clear();
-    console.log('Success');
-    process.exit(0);
-  })
-  .catch(err => {
+  } catch (err) {
     clear();
     console.error(err);
     process.exit(1);
-  });
+  }
+};
+
+main().catch(console.error);
+
